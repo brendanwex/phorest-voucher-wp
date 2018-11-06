@@ -22,6 +22,7 @@ class PhorestVoucher
         add_action('wp_ajax_phorest_callback', array($this, 'phorest_callback'));
         add_action('wp_ajax_nopriv_phorest_callback', array($this, 'phorest_callback'));
         add_action("wp_ajax_phorest_voucher_preview", array($this, "phorest_generate_voucher_pdf"));
+        add_action("wp_ajax_resend_customer_email", array($this, "resend_customer_email"));
 
         $this->phorest_settings = get_option("voucher_settings");
 
@@ -771,6 +772,65 @@ class PhorestVoucher
 
 
         }
+
+    }
+
+
+    function order_modal($order_id){
+
+
+        $order = $this->get_order($order_id);
+
+        $date_format = get_option("date_format");
+
+
+        ob_start();
+
+        include(PHOREST_VIEWS_DIR . "admin/order-modal.php");
+
+
+        $output = ob_get_contents();
+
+        ob_clean();
+
+
+        return $output;
+
+    }
+
+
+    function resend_customer_email(){
+
+
+        isset($_GET['order_id']) ? $order_id = $_GET['order_id'] : $order_id = "";
+
+        if(empty($order_id)){
+
+            echo json_encode(array('status' => 'error', 'msg' => 'Order ID is required!'));
+
+        }else {
+
+            $order = $this->get_order($order_id);
+
+            if ((int) $order->status !== 1) {
+
+                echo json_encode(array('status' => 'error', 'msg' => 'Sorry this order has not been paid for yet.'));
+
+            } else {
+
+                if ($this->phorest_send_customer_email($order_id)) {
+                    echo json_encode(array('status' => 'success', 'msg' => 'Email sent!'));
+
+                } else {
+
+                    echo json_encode(array('status' => 'error', 'msg' => 'Sorry the email could not be sent.'));
+
+                }
+            }
+
+        }
+
+        wp_die();
 
     }
 

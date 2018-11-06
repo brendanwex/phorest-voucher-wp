@@ -5,34 +5,102 @@
 .gr-tabs .tab-content {
     min-height: 800px;
 }
-button.add-amount{
-    margin-top:15px;
+
+button.add-amount {
+    margin-top: 15px;
 }
-span.order-pending{
+
+span.order-pending {
     background-color: #ff871e;
-    color:#fff;
-    padding:5px;
+    color: #fff;
+    padding: 5px;
 }
-span.order-paid{
+
+span.order-paid {
     background-color: #48802d;
-    color:#fff;
-    padding:5px;
+    color: #fff;
+    padding: 5px;
 
 }
-span.order-failed{
+
+span.order-failed {
     background-color: #ff220f;
-    color:#fff;
-    padding:5px;
+    color: #fff;
+    padding: 5px;
 
 }
-#more-amounts p.ui-sortable-handle{
+
+#more-amounts p.ui-sortable-handle {
     cursor: move;
 }
-#more-amounts p::after{
+
+#more-amounts p::after {
     content: "\f142";
     font-family: "FontAwesome";
     display: inline-block;
     font-size: 16px;
     vertical-align: middle;
     margin-left: 10px;
+}
+
+.phorest-order-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 9998;
+    display: none;
+
+}
+
+.phorest-order-modal {
+
+    width: 600px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -70%);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    z-index: 9999;
+    min-height: 600px;
+    display: none;
+
+}
+
+a.close-phorest-modal {
+    color: #000;
+    font-size: 25px;
+    font-weight: 600;
+    float: right;
+    padding-right: 15px;
+    text-decoration: none;
+
+}
+
+.phorest-order-modal-inner .topbar {
+    padding: 10px;
+    border-bottom: 2px solid #eee;
+}
+
+.phorest-order-modal-inner .topbar h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    display: inline-block;
+}
+.phorest-order-modal-inner .inner-content{
+    padding: 10px;
+}
+.phorest-order-modal-inner span.email-response{
+    font-size: 14px;
+    display: block;
+    margin-top: 5px;
+}
+.phorest-order-modal-inner span.email-response.success{
+    color:green;
+}
+.phorest-order-modal-inner span.email-response.error{
+    color:red;
 }

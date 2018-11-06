@@ -74,4 +74,53 @@ jQuery(document).ready(function ($) {
 
     });
 
+
+
+    $(".close-phorest-modal").on("click", function(e){
+
+
+        e.preventDefault();
+
+        $(".phorest-order-modal").hide();
+        $(".phorest-order-backdrop").hide();
+
+
+    });
+
+    $(".open-phorest-modal").on("click", function(e){
+
+        e.preventDefault();
+
+        $(this).parent().parent().parent().find(".phorest-order-backdrop").show();
+
+        $(this).parent().parent().parent().find(".phorest-order-modal").show();
+
+
+
+
+    });
+
+
+    $(".resend-customer-email").on("click", function(e){
+
+
+        e.preventDefault();
+
+        this_btn = $(this);
+
+        order_id = $(this).data('id');
+
+        response_ele = $(this).next("span");
+
+        $.ajax({
+            url: ajaxurl + "?action=resend_customer_email&order_id="+order_id,
+            dataType : "JSON"
+        }).done(function(response) {
+            if(response.status === "success"){
+                this_btn.hide();
+            }
+            response_ele.html(response.msg).addClass(response.status);
+        });
+
+    });
 });

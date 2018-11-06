@@ -59,7 +59,7 @@ defined( 'ABSPATH' ) or die( "Cannot access pages directly." );
         <h2>order Failed</h2>
 
         <p>Sorry we could not complete your transaction, please try again later or try another payment method.</p>
-    <?php}
+    <?php }
     //Unset SESSION
     unset($_SESSION['phorest']);
 

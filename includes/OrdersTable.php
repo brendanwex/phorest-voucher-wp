@@ -32,7 +32,16 @@ class OrdersTable extends WP_List_Table {
 
 			case 'order_id':
 
-				return $this->column_title( $item );
+
+			    $output = "";
+
+				$output .= $this->column_title( $item );
+
+
+				$output .= $phorest->order_modal($item['order_id']);
+
+
+				return $output;
 
 				break;
 
@@ -106,19 +115,6 @@ class OrdersTable extends WP_List_Table {
             break;
 
 
-            case 'manage':
-
-
-                $output = "<a href='#' class='button'>View</a>";
-                if($item['status'] == 1){
-                    $output .= " <a href='".admin_url('admin-ajax.php?action=phorest_voucher_preview&order_id='.$item['order_id'])."' class='button' target='_blank'>Print Voucher</a> ";
-
-                }
-
-
-                return $output;
-
-                break;
 
 
 			default:
@@ -168,7 +164,7 @@ class OrdersTable extends WP_List_Table {
 		$actions = array();
 
 		//Build row actions
-        $actions['view'] =  "<a href=''>View Order</a>";
+        $actions['view'] =  "<a href='#' class='open-phorest-modal' data-id='{$item['order_id']}'>View Order</a>";
         if($item['status'] == 1) {
             $actions['print'] = "<a href='".admin_url('admin-ajax.php?action=phorest_voucher_preview&order_id='.$item['order_id'])."' target='_blank'>Print Voucher</a>";
         }
