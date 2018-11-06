@@ -1,0 +1,6 @@
+{
+  "require": {
+    "stripe/stripe-php": "6.20.0",
+    "tecnickcom/tcpdf": "6.2.26"
+  }
+}

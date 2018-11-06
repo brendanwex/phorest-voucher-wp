@@ -1,0 +1,38 @@
+.gr-tabs .tab-content:not(.active) {
+    display: none;
+}
+
+.gr-tabs .tab-content {
+    min-height: 800px;
+}
+button.add-amount{
+    margin-top:15px;
+}
+span.order-pending{
+    background-color: #ff871e;
+    color:#fff;
+    padding:5px;
+}
+span.order-paid{
+    background-color: #48802d;
+    color:#fff;
+    padding:5px;
+
+}
+span.order-failed{
+    background-color: #ff220f;
+    color:#fff;
+    padding:5px;
+
+}
+#more-amounts p.ui-sortable-handle{
+    cursor: move;
+}
+#more-amounts p::after{
+    content: "\f142";
+    font-family: "FontAwesome";
+    display: inline-block;
+    font-size: 16px;
+    vertical-align: middle;
+    margin-left: 10px;
+}
