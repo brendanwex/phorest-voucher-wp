@@ -4,6 +4,8 @@
  * User: BrendanDoyle
  * Date: 02/11/2018
  * Time: 13:43
+ *
+ * @credit: https://github.com/derekmcauley7/phorest-voucher-api
  */
 defined( 'ABSPATH' ) or die( "Cannot access pages directly." );
 
