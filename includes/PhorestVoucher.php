@@ -475,7 +475,7 @@ class PhorestVoucher
 
         $to = $order->email;
 
-        $body_data = str_replace(array('[customer_firstname]', '[customer_lastname]', '[order_date]', '[voucher_amount]', '[voucher_message]', '[voucher_code]', '[voucher_terms]', '[voucher_expiry]'), array($order->firstname, $order->lastname, $order->order_date, $order->voucher_amount, $order->message, $order->voucher_number, $voucher_settings['tos_text'], $order->voucher_expiry ), $customer_email_text);
+        $body_data = str_replace(array('[customer_firstname]', '[customer_lastname]', '[order_date]', '[voucher_amount]', '[voucher_message]', '[voucher_code]', '[voucher_terms]', '[voucher_expiry]'), array($order->firstname, $order->lastname, date("d-m-Y H:i:s", $order->order_date), $order->voucher_amount, $order->message, $order->voucher_number, $voucher_settings['tos_text'], date("d-m-Y", $order->voucher_expiry) ), $customer_email_text);
 
         ob_start();
 
@@ -528,7 +528,7 @@ class PhorestVoucher
 
         $subject = "New Gift Voucher Purchase";
 
-        $body_data = str_replace(array('[customer_firstname]', '[customer_lastname]', '[order_date]', '[voucher_amount]', '[voucher_message]', '[voucher_code]', '[voucher_terms]', '[voucher_expiry]'), array($order->firstname, $order->lastname, $order->order_date, $order->voucher_amount, $order->message, $order->voucher_number, $voucher_settings['tos_text'], $order->voucher_expiry ), $customer_email_text);
+        $body_data = str_replace(array('[customer_firstname]', '[customer_lastname]', '[order_date]', '[voucher_amount]', '[voucher_message]', '[voucher_code]', '[voucher_terms]', '[voucher_expiry]'), array($order->firstname, $order->lastname, date("d-m-Y", $order->order_date), $order->voucher_amount, $order->message, $order->voucher_number, $voucher_settings['tos_text'], date("d-m-Y", $order->voucher_expiry) ), $customer_email_text);
 
         ob_start();
 
@@ -647,6 +647,9 @@ class PhorestVoucher
 
         $voucher_settings = get_option("voucher_settings");
 
+
+
+        isset($voucher_settings['voucher_custom_font']) ? $voucher_custom_font = $voucher_settings['voucher_custom_font'] : $voucher_custom_font = "";
         isset($voucher_settings['voucher_footer']) ? $voucher_footer = $voucher_settings['voucher_footer'] : $voucher_footer = "";
         isset($voucher_settings['voucher_text']) ? $voucher_text = $voucher_settings['voucher_text'] : $voucher_text = "";
 
@@ -668,7 +671,14 @@ class PhorestVoucher
         $pdf->SetAutoPageBreak(TRUE, 0);
 
 
-        $pdf->SetFont('helvetica', '', 10);
+
+        if(!empty($voucher_custom_font)){
+            $fontname = TCPDF_FONTS::addTTFfont($voucher_custom_font, 'TrueType', '', 32);
+            $pdf->SetFont($fontname, '', 9);
+        }else{
+            $pdf->SetFont('times', '', 10);
+
+        }
 
         $pdf->AddPage();
 
